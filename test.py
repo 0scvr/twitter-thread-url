@@ -8,17 +8,21 @@ class TestUtils(unittest.TestCase):
         """
         Test that it works correctly
         """
-        test_data = "https://twitter.com/defi_mochi/status/1667184877270073344"
+        test_data = "1667184877270073344"
         result = replace_url(test_data)
         self.assertEqual(result, "https://twitter-thread.com/t/1667184877270073344")
 
     def test_extract_tweet_id(self):
         """
-        Test that it works correctly
+        Test that tweet id is correctly extracted
         """
         test_data = "https://twitter.com/defi_mochi/status/1667184877270073344"
         result = extract_tweet_id(test_data)
         self.assertEqual(result, "1667184877270073344")
+        
+        test_data = "https://x.com/zerokn0wledge_/status/1742897423754932297?t=deFYPUSwvQGG7paCTH00Cw&s=09"
+        result = extract_tweet_id(test_data)
+        self.assertEqual(result, "1742897423754932297")
     
     def test_send_post(self):
         """

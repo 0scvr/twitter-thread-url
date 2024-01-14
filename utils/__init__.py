@@ -1,7 +1,8 @@
 import csv, re, requests
 
 API_URL = 'https://twitter-thread.com/api/unroll-thread'
-PATTERN = r'https:\/\/twitter\.com\/.+\/status\/(\d+)'
+TWITTER_PATTERN = r'https:\/\/twitter\.com\/.+\/status\/(\d+)'
+X_PATTERN = r'https:\/\/x\.com\/.+\/status\/(\d+)'
 
 # replaces a twitter.com URL with a twitter-thread.com URL string
 def replace_url(tweet_id):
@@ -22,9 +23,13 @@ def extract_urls_from_csv(csv_file):
 
 # extracts the tweet id from a tweet URL string
 def extract_tweet_id(url):
-    match = re.match(PATTERN, url)
+    match = re.match(TWITTER_PATTERN, url)
     if match:
         return match.group(1)
+    else:
+        match = re.match(X_PATTERN, url)
+        if match:
+            return match.group(1)
     return None
 
 # call twitter-thread API with given tweet_id to create a thread for it. Returns 1 if successful, None otherwise
